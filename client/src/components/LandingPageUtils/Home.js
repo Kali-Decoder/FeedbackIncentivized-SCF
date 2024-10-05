@@ -64,7 +64,7 @@ const Home = () => {
         </div>
         
         
-        {verified ? <button className="text-white  bg-violet-500 px-[40px] py-[10px] mt-20 rounded-md text-[15px] hover:bg-violet-400 active:bg-violet-500 transition-all">
+        {true ? <button className="text-white  bg-violet-500 px-[40px] py-[10px] mt-20 rounded-md text-[15px] hover:bg-violet-400 active:bg-violet-500 transition-all">
             <Link to="/marketplace">Welcome to FeedBack Incentivized</Link>
             
           </button>  : (
