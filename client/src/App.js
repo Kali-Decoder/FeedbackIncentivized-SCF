@@ -7,9 +7,12 @@ import "react-toastify/dist/ReactToastify.css";
 import FeedBackForm from "./pages/FeedBackForm";
 import RegisterUser from "./pages/RegisterPage";
 import CompanyDashboard from "./pages/CompanyDashboard";
+// import {WalletProvider from "./Context/walletmanager";
+import { WalletProvider } from "./Context/walletmanager";
 const App = () => {
   return (
     <>
+    <WalletProvider>
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -27,6 +30,7 @@ const App = () => {
         <Route exact path="/register" element={<RegisterUser />} />
         <Route exact path="/company-dashboard" element={<CompanyDashboard />} />
       </Routes>
+      </WalletProvider>
     </>
   );
 };

@@ -2,12 +2,19 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useUserDataContext } from "../../Context/UserContext";
+import { useWallet } from '../../Context/walletmanager';
 
 const NavBar = () => {
   const [toggle, setToggle] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const isMarketplacePage = location.pathname === "/marketplace";
+  const wallet = useWallet();
+  const handleConnect = wallet ? wallet.handleConnect : () => { console.warn("Wallet not initialized"); };
+  const handleDisconnect = wallet ? wallet.handleDisconnect : () => { console.warn("Wallet not initialized"); };
+  const publicKey = wallet ? wallet.publicKey : null;
+  const connected = wallet ? wallet.connected : false;
+
 
   const { verified, owner } = useUserDataContext();
   return (
@@ -69,7 +76,20 @@ const NavBar = () => {
               </li>
             ) : null}
           </ul>
+    
         )}
+               <div className="flex items-center">
+           <button className="btn btn-primary" onClick={connected ? handleDisconnect : handleConnect}>
+             {connected ? 'Disconnect' : 'Connect'}
+           </button>
+           {publicKey && (
+             <div className="flex items-center justify-center mx-2 border border-white rounded px-2">
+               <span className="text-white text-sm">
+                 {publicKey.substring(0, 6)}...
+               </span>
+             </div>
+           )}
+         </div>
         {!isMarketplacePage && (
           <button
             type="button"
