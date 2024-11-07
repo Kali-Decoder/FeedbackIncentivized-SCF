@@ -83,13 +83,15 @@ const NavBar = () => {
              {connected ? 'Disconnect' : 'Connect'}
            </button>
            {publicKey && (
-             <div className="flex items-center justify-center mx-2 border border-white rounded px-2">
-               <span className="text-white text-sm">
-                 {publicKey.substring(0, 6)}...
-               </span>
-             </div>
-           )}
-         </div>
+          <div className="flex items-center justify-center mx-2 border border-white rounded px-2">
+            <span className="text-white text-sm">
+              {publicKey.substring(0, 6)}...{publicKey.substring(publicKey.length - 4)}
+            </span>
+          </div>
+        )}
+          </div>
+
+    
         {!isMarketplacePage && (
           <button
             type="button"

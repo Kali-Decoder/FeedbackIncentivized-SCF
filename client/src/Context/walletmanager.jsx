@@ -25,7 +25,7 @@ export const WalletProvider = ({ children }) => {
     network: WalletNetwork.TESTNET,
     modules: [new xBullModule(), new FreighterModule(), new AlbedoModule()],
   });
-  
+
   const handleConnect = async () => {
     try {
       await kit.openModal({
@@ -94,14 +94,14 @@ export const WalletProvider = ({ children }) => {
       });
 
       if (txnResult.successful) {
-        alert('Withdrawal successful');
+        alert('Stake Submitted Succeddfully');
         await fetchBalance();
       } else {
-        alert('Withdrawal failed');
+        alert('Staking Failed');
       }
     } catch (error) {
       console.error(`Error withdrawing funds - ${error?.message}`);
-      alert('Withdrawal failed');
+      alert('Staking failed');
     }
   };
 

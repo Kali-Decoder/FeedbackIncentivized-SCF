@@ -2,7 +2,19 @@
 import React, { useState } from "react";
 import Confetti from "react-confetti";
 import { useUserDataContext } from "../Context/UserContext";
+import { useWallet } from "../Context/walletmanager";
+
 const FeedBackForm = () => {
+
+  //Deposit function logic
+  const wallet = useWallet();
+  const handleWithdraw = wallet ? wallet.handleWithdraw : () => { console.warn("Wallet not initialized"); };
+  const { handlePayment } = useWallet() || { handlePayment: async () => console.warn("Wallet not initialized") };
+  const [investAmount, setInvestAmount] = useState('');
+  const { fetchBalance, balance } = useWallet() || { fetchBalance: async () => {}, balance: '0' };
+
+
+
   const [selectedFile, setSelectedFile] = useState("");
   const { confetti ,createIssue} = useUserDataContext();
   const handleFileChange = (e) => {
@@ -188,13 +200,30 @@ const FeedBackForm = () => {
                 <option value="5">5</option>
               </select>
             </div>
-            <div>
-              <button
-                onClick={onSubmit}
-                className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none"
-              >
-                Submit
-              </button>
+            <div className="mb-8">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="invest">
+              Investment Amount
+            </label>
+            <input
+              id="invest"
+              type="number"
+              placeholder="ex. 129"
+              value={investAmount}
+              onChange={(e) => setInvestAmount(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
+             </div>
+
+             <div className="mb-5 flex justify-center">
+            <button
+              onClick={(e) => {
+                onSubmit(e);
+                handleWithdraw(investAmount);
+              }}
+              className="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none"
+            >
+              Submit
+            </button>
             </div>
           </form>
         </div>
